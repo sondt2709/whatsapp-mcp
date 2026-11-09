@@ -7,10 +7,10 @@
 
 ## 2. Encrypted store and key store (PR 1)
 
-- [ ] 2.1 `internal/keystore`: the interface, the macOS back end through purego, the Linux Secret Service back end, the passphrase back end (Argon2id), and a memory back end for tests
-- [ ] 2.2 `internal/store`: open the Adiantum database with the key, file modes 0700 and 0600, the whatsmeow container on the same `*sql.DB`, the tables `messages`, `chats`, `http_keys`
-- [ ] 2.3 Store queries: save a message (ignore duplicates), list chats (query, kind, limit), list messages (chat, query, before, after, limit), rows after a cursor, retention delete
-- [ ] 2.4 Test: a canary text in a stored message, a contact name and the whatsmeow event buffer give zero matches in all data files; a wrong key fails
+- [x] 2.1 `internal/keystore`: the interface, the macOS back end through purego, the Linux Secret Service back end, the passphrase back end (Argon2id), and a memory back end for tests
+- [x] 2.2 `internal/store`: open the Adiantum database with the key, file modes 0700 and 0600, the whatsmeow container on the same `*sql.DB`, the tables `messages`, `chats`, `http_keys`
+- [x] 2.3 Store queries: save a message (ignore duplicates), list chats (query, kind, limit), list messages (chat, query, before, after, limit), rows after a cursor, retention delete
+- [x] 2.4 Test: a canary text in a stored message, a contact name and the whatsmeow event buffer give zero matches in all data files; a wrong key fails
 - [ ] 2.5 Test the keystore back ends in CI (temporary keychain on macOS, `gnome-keyring-daemon` on Ubuntu)
 
 ## 3. WhatsApp layer (PR 1)
