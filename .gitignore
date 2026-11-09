@@ -1,0 +1,17 @@
+# Local secrets and scratch files. Never commit these.
+tmp/
+*.local
+*.local.*
+.leakcheck.local
+
+# Build and test output
+/bin/
+/whatsapp-mcp
+/dist/
+/test/e2e/out/
+coverage.out
+
+# Editors and OS
+.DS_Store
+.idea/
+.vscode/
