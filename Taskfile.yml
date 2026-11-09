@@ -1,0 +1,39 @@
+version: "3"
+
+vars:
+  VERSION:
+    sh: git describe --tags --always --dirty 2>/dev/null || echo dev
+  LDFLAGS: -s -w -X main.version={{.VERSION}}
+
+tasks:
+  build:
+    desc: Build bin/whatsapp-mcp
+    env: { CGO_ENABLED: "0" }
+    cmds:
+      - go build -trimpath -ldflags "{{.LDFLAGS}}" -o bin/whatsapp-mcp ./cmd/whatsapp-mcp
+
+  test:
+    desc: Run the unit and e2e tests (no WhatsApp account)
+    cmds:
+      - go test -race -count=1 ./...
+
+  lint:
+    desc: Run golangci-lint
+    cmds:
+      - golangci-lint run ./...
+
+  fmt:
+    desc: Format the code
+    cmds:
+      - gofmt -w .
+
+  leakcheck:
+    desc: Search tracked files for the forbidden terms in .leakcheck.local
+    cmds:
+      - scripts/leakcheck.sh
+
+  live:
+    desc: Run the live test with two linked devices of a real account (local only, see test/live)
+    env: { CGO_ENABLED: "0" }
+    cmds:
+      - go test -tags live -count=1 -timeout 30m -v ./test/live/...
