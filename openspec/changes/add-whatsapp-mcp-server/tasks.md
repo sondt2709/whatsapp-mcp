@@ -15,14 +15,14 @@
 
 ## 3. WhatsApp layer (PR 1)
 
-- [ ] 3.1 `internal/whatsapp`: the `waClient` interface without read or presence methods, the connection, the device name `whatsapp-mcp`, the logger that drops message text
-- [ ] 3.2 Pairing with a QR code and with a pairing code; logout that deletes the database and the key item
-- [ ] 3.3 Event to row: text and media placeholders, quote reference, kinds to ignore, history sync, chat names from groups and contacts
-- [ ] 3.4 ID resolver: LID first, `+<phone>` input, both forms of one person to one canonical ID, own chat
-- [ ] 3.5 Send text (plain, quote, disappearing timer, message ID from `request_id`), known-recipient check (`IsOnWhatsApp`)
-- [ ] 3.6 Send a file (image or document, upload, caption)
-- [ ] 3.7 Download a file into memory (100 MB limit, HTTP 403/404/410 to `file_expired`)
-- [ ] 3.8 Unread AST test: no call of `MarkRead`, `SendPresence`, `SubscribePresence`, `SendChatPresence` on the client
+- [x] 3.1 `internal/whatsapp`: the `waClient` interface without read or presence methods, the connection, the device name `whatsapp-mcp`, the logger that drops message text
+- [x] 3.2 Pairing with a QR code and with a pairing code; logout that deletes the database and the key item
+- [x] 3.3 Event to row: text and media placeholders, quote reference, kinds to ignore, history sync, chat names from groups and contacts
+- [x] 3.4 ID resolver: LID first, `+<phone>` input, both forms of one person to one canonical ID, own chat
+- [x] 3.5 Send text (plain, quote, disappearing timer, message ID from `request_id`), known-recipient check (`IsOnWhatsApp`)
+- [x] 3.6 Send a file (image or document, upload, caption)
+- [x] 3.7 Download a file into memory (100 MB limit, HTTP 403/404/410 to `file_expired`)
+- [x] 3.8 Unread AST test: no call of `MarkRead`, `SendPresence`, `SubscribePresence`, `SendChatPresence` on the client
 - [ ] 3.9 Capture tool for replay fixtures (addresses, IDs, names and texts replaced, file bytes removed); capture from a paired account, read the output, add replay tests
 
 ## 4. Daemon and socket API (PR 1)
