@@ -27,11 +27,11 @@
 
 ## 4. Daemon and socket API (PR 1)
 
-- [ ] 4.1 `internal/daemon`: data folder lock, account states, the connection loop with reconnect, retention job each hour
-- [ ] 4.2 Socket server with `/v1` endpoints for each tool, the long-path fallback, peer UID check, error codes
-- [ ] 4.3 Event hub and `wait` endpoint with cursor and timeout
-- [ ] 4.4 File streaming endpoints for download and send
-- [ ] 4.5 `--read-only` flag
+- [x] 4.1 `internal/daemon`: data folder lock, account states, the connection loop with reconnect, retention job each hour
+- [x] 4.2 Socket server with `/v1` endpoints for each tool, the long-path fallback, peer UID check, error codes
+- [x] 4.3 Event hub and `wait` endpoint with cursor and timeout
+- [x] 4.4 File streaming endpoints for download and send
+- [x] 4.5 `--read-only` flag
 - [ ] 4.6 `internal/client`: socket client and the automatic start of the daemon
 
 ## 5. Files and sanitizing (PR 1)
