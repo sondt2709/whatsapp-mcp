@@ -91,7 +91,7 @@ A daemon holds the connection; the other commands start it when it does not run.
 	root.PersistentFlags().DurationVar(&o.retention, "retention", api.DefaultRetentionHr*time.Hour, "daemon: delete messages older than this (used when a command starts the daemon)")
 
 	root.AddCommand(daemonCmd(o), mcpCmd(o), pairCmd(o), unlockCmd(o), statusCmd(o), logoutCmd(o),
-		chatsCmd(o), messagesCmd(o), waitCmd(o), sendCmd(o), sendFileCmd(o), downloadCmd(o))
+		chatsCmd(o), messagesCmd(o), waitCmd(o), sendCmd(o), sendFileCmd(o), downloadCmd(o), captureCmd(o))
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()

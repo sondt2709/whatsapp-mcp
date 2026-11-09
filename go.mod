@@ -1,6 +1,8 @@
 module github.com/sondt2709/whatsapp-mcp
 
-go 1.26.6
+go 1.26.0
+
+toolchain go1.26.10
 
 require (
 	github.com/ebitengine/purego v0.11.3
