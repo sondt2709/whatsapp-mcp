@@ -32,7 +32,7 @@
 - [x] 4.3 Event hub and `wait` endpoint with cursor and timeout
 - [x] 4.4 File streaming endpoints for download and send
 - [x] 4.5 `--read-only` flag
-- [ ] 4.6 `internal/client`: socket client and the automatic start of the daemon
+- [x] 4.6 `internal/client`: socket client and the automatic start of the daemon
 
 ## 5. Files and sanitizing (PR 1)
 
@@ -42,11 +42,11 @@
 
 ## 6. CLI and stdio MCP (PR 1)
 
-- [ ] 6.1 `cmd/whatsapp-mcp`: `pair`, `unlock`, `status`, `logout`, `daemon`, and one command for each tool with `--json`
-- [ ] 6.2 `internal/mcpserver`: the seven tools with schemas, annotations, untrusted-text descriptions, error results with actions, progress notifications in `wait_for_messages`
-- [ ] 6.3 `whatsapp-mcp mcp` stdio command
-- [ ] 6.4 MCP e2e tests: the real binary over stdio with the fake back end, every tool and every error state, CLI `--json` equal to the tool result
-- [ ] 6.5 `README.md`: install, pair, add to an MCP client, tools, security model and its limits
+- [x] 6.1 `cmd/whatsapp-mcp`: `pair`, `unlock`, `status`, `logout`, `daemon`, and one command for each tool with `--json`
+- [x] 6.2 `internal/mcpserver`: the seven tools with schemas, annotations, untrusted-text descriptions, error results with actions, progress notifications in `wait_for_messages`
+- [x] 6.3 `whatsapp-mcp mcp` stdio command
+- [x] 6.4 MCP e2e tests: the real binary over stdio with the fake back end, every tool and every error state, CLI `--json` equal to the tool result
+- [x] 6.5 `README.md`: install, pair, add to an MCP client, tools, security model and its limits
 
 ## 7. Live verification (PR 1)
 

@@ -49,8 +49,8 @@ With the daemon flag `--read-only`, the MCP server SHALL not list `send_message`
 - **THEN** the call returns `read_only` and sends nothing
 
 ### Requirement: Ask the client before a send
-The MCP tools `send_message` and `send_file` SHALL have the annotations `readOnlyHint: false`, `destructiveHint: false` and `openWorldHint: true`, so that an MCP client can ask the user before the call. All other tools SHALL have `readOnlyHint: true`.
+The MCP tools `send_message` and `send_file` SHALL have the annotations `readOnlyHint: false`, `destructiveHint: false` and `openWorldHint: true`, so that an MCP client can ask the user before the call. `download_file` writes a file, so it SHALL have `readOnlyHint: false` and `destructiveHint: false` (it never overwrites). `get_status`, `list_chats`, `list_messages` and `wait_for_messages` SHALL have `readOnlyHint: true`.
 
 #### Scenario: Tool list
 - **WHEN** an MCP client lists the tools
-- **THEN** `send_message` and `send_file` have `openWorldHint: true` and the other tools have `readOnlyHint: true`
+- **THEN** `send_message` and `send_file` have `openWorldHint: true`, `download_file` has `readOnlyHint: false` and `destructiveHint: false`, and the four reading tools have `readOnlyHint: true`
