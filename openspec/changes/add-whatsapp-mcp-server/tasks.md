@@ -36,9 +36,9 @@
 
 ## 5. Files and sanitizing (PR 1)
 
-- [ ] 5.1 `internal/files`: safe name, never overwrite, quarantine on macOS, default download folder (XDG on Linux)
-- [ ] 5.2 Send-path rule: `--send-dir`, hidden names, links out of the folder, 100 MB limit
-- [ ] 5.3 `internal/sanitize`: remove hidden characters from text, names and quotes
+- [x] 5.1 `internal/files`: safe name, never overwrite, quarantine on macOS, default download folder (XDG on Linux)
+- [x] 5.2 Send-path rule: `--send-dir`, hidden names, links out of the folder, 100 MB limit
+- [x] 5.3 `internal/sanitize`: remove hidden characters from text, names and quotes
 
 ## 6. CLI and stdio MCP (PR 1)
 
