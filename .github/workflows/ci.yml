@@ -1,0 +1,99 @@
+name: ci
+
+# Runs on each pull request and on each push to main.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: golangci/golangci-lint-action@v8
+        with:
+          version: v2.12.2
+
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Install the Secret Service (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y gnome-keyring dbus-x11
+      - name: Unit and e2e tests (Linux, with a keyring in a D-Bus session)
+        if: runner.os == 'Linux'
+        env:
+          WHATSAPP_MCP_TEST_KEYRING: "1"
+        run: |
+          dbus-run-session -- sh -c 'echo test | gnome-keyring-daemon --unlock --components=secrets >/dev/null && go test -race -count=1 ./...'
+      - name: Unit and e2e tests (macOS, with a temporary keychain)
+        if: runner.os == 'macOS'
+        env:
+          WHATSAPP_MCP_TEST_KEYRING: "1"
+        run: |
+          security create-keychain -p test ci.keychain-db
+          security unlock-keychain -p test ci.keychain-db
+          security list-keychains -d user -s ci.keychain-db $(security list-keychains -d user | tr -d '"')
+          security default-keychain -s ci.keychain-db
+          go test -race -count=1 ./...
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - { goos: darwin, goarch: arm64 }
+          - { goos: darwin, goarch: amd64 }
+          - { goos: linux, goarch: amd64 }
+          - { goos: linux, goarch: arm64 }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Build ${{ matrix.goos }}/${{ matrix.goarch }}
+        env:
+          CGO_ENABLED: "0"
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        run: |
+          go build -trimpath -o /tmp/whatsapp-mcp ./cmd/whatsapp-mcp
+          file /tmp/whatsapp-mcp
+
+  vulncheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - run: go run golang.org/x/vuln/cmd/govulncheck@latest ./...
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

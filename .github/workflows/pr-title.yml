@@ -1,0 +1,27 @@
+name: pr-title
+
+# The PR title becomes the squash commit subject on main, so it must follow Conventional Commits.
+# "edited" is in the trigger list, so a corrected title runs the check again.
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions: {}
+
+jobs:
+  pr-title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Conventional Commits
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          set -eu
+          re='^(feat|fix|chore|docs|refactor|test|ci|build|perf)(\([a-z0-9._/-]+\))?!?: [^ ].{0,99}$'
+          if printf '%s' "$TITLE" | grep -Eq "$re"; then
+            echo "OK: $TITLE"
+          else
+            echo "::error::PR title must follow Conventional Commits, for example 'feat(send): add a caption to send_file'."
+            echo "Allowed types: feat, fix, chore, docs, refactor, test, ci, build, perf. Title: $TITLE"
+            exit 1
+          fi

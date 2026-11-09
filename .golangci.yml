@@ -1,0 +1,19 @@
+version: "2"
+
+linters:
+  enable:
+    - errcheck
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - misspell
+    - bodyclose
+  exclusions:
+    presets:
+      - std-error-handling # Close, fmt.Fprint* and similar calls
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
